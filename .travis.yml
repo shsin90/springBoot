@@ -6,6 +6,7 @@ branches:
   only:
     - master
 
+#gradlew 파일이 권한이 없다고 자꾸 에러뜸.. 아래 부분을 추가해줘야 빌드 가능.
 before_install:
   - chmod +x gradlew
 
@@ -16,6 +17,22 @@ cache:
     - '$HOME/.gradle'
 
 script: "./gradlew clean build"
+
+before_deploy:
+  - zip .r ssh-springboot2-webservice *
+  - mkdir -p deploy
+  - mv ssh-springboot2-webservice.zip  deploy/ssh-springboot2-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: ssh-springboot-build # S3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일 접근을 private으로
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
+    wait-until-deployed: true
 
 
 #CI 실행 완료 시 메일로 알람
