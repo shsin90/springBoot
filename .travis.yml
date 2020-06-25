@@ -19,7 +19,7 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip .r ssh-springboot2-webservice.zip ./*
+  - zip -r ssh-springboot2-webservice *
   - mkdir -p deploy
   - mv ssh-springboot2-webservice.zip  deploy/ssh-springboot2-webservice.zip
 
