@@ -1,5 +1,6 @@
 package com.syo.book.springboot.web;
 
+import com.syo.book.springboot.domain.posts.Posts;
 import com.syo.book.springboot.service.posts.PostsService;
 import com.syo.book.springboot.web.dto.PostsResponseDto;
 import com.syo.book.springboot.web.dto.PostsSaveRequestDto;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -37,11 +39,17 @@ public class PostsApiController {
 
     @PostMapping("/temp/setTemp")
     public HashMap<String, Object> setTemp(){
-        HashMap<String, Object> hashMap = new HashMap<String, Object>();
-        hashMap.put("id", "hello");
-        hashMap.put("password", "1234");
-        hashMap.put("email", "ssh@sygroup.kr");
-
-        return hashMap;
+        HashMap<String, Object> tempMap = new HashMap<String, Object>();
+        Object temp = postsService.findAllDesc();
+        tempMap.put("posts", temp);
+        return tempMap;
     }
+//    public HashMap<String, Object> setTemp(){
+//        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+//        hashMap.put("id", "hello");
+//        hashMap.put("password", "1234");
+//        hashMap.put("email", "ssh@sygroup.kr");
+//
+//        return hashMap;
+//    }
 }
