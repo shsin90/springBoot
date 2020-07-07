@@ -7,6 +7,8 @@ import com.syo.book.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RequiredArgsConstructor
 @RestController
 public class PostsApiController {
@@ -31,5 +33,15 @@ public class PostsApiController {
     public Long delete(@PathVariable Long id){
         postsService.delete(id);
         return id;
+    }
+
+    @PostMapping("/temp/setTemp")
+    public HashMap<String, Object> setTemp(){
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("id", "hello");
+        hashMap.put("password", "1234");
+        hashMap.put("email", "ssh@sygroup.kr");
+
+        return hashMap;
     }
 }
